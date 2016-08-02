@@ -8,9 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Dallage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Agence du Revenu du Québec")]
 [assembly: AssemblyProduct("Dallage")]
-[assembly: AssemblyCopyright("Copyright © Agence du Revenu du Québec 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

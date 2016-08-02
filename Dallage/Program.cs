@@ -5,9 +5,9 @@ namespace Dallage
 {
     class Program
     {
-        const int width = 40;
-        const int squareSize = 5;
-        const int height = 10;
+        const int width = 80;
+        static int squareSize = 2;
+        //const int height = 24;
 
         static char[] MakeLine(params object[] args)
         {
@@ -28,54 +28,119 @@ namespace Dallage
             char leftAngle = '<';
             char rightAngle = '>';
             char empty = ' ';
-            char[][] lignes = new char[squareSize][];
+            char[] ligne;
             int l = 0;
+            bool aPresse = false;
 
-            while (l < squareSize / 2)
-            {
-                lignes[l] = MakeLine(
-                    //new string(empty, ((squareSize - 1 - l) * 2 - squareSize)),
-                    new string(empty, squareSize - 2 * (l + 1)),
-                    leftUpward,
-                    new string(empty, l * 4),
-                    leftDownward,
-                    //new string(empty, ((squareSize - 1 - l) * 2 - squareSize))
-                    new string(empty, squareSize - 2 * (l + 1))
-                );
-                l++;
-            }
+            //while (l < squareSize / 2)
+            //{
+            //    lignes[l] = MakeLine(
+            //        //new string(empty, ((squareSize - 1 - l) * 2 - squareSize)),
+            //        new string(empty, squareSize - 2 * (l + 1)),
+            //        leftUpward,
+            //        new string(empty, l * 4),
+            //        leftDownward,
+            //        //new string(empty, ((squareSize - 1 - l) * 2 - squareSize))
+            //        new string(empty, squareSize - 2 * (l + 1))
+            //    );
+            //    l++;
+            //}
 
-            if (squareSize % 2 == 1)
-            {
-                lignes[l] = MakeLine(
-                    leftAngle,
-                    new string(empty, l * 4 -2),
-                    rightAngle
-                );
-                l++;
-            }
+            //if (squareSize % 2 == 1)
+            //{
+            //    lignes[l] = MakeLine(
+            //        leftAngle,
+            //        new string(empty, l * 4 - 2),
+            //        rightAngle
+            //    );
+            //    l++;
+            //}
 
-            while (l < squareSize)
-            {
-                lignes[l] = MakeLine(
-                    new string(empty, (l * 2 - squareSize)),
-                    leftDownward,
-                    new string(empty, (squareSize - l - 1) * 4),
-                    leftUpward,
-                    new string(empty, (l * 2 - squareSize))
-                );
-                l++;
-            }
+            //while (l < squareSize)
+            //{
+            //    lignes[l] = MakeLine(
+            //        new string(empty, (l * 2 - squareSize)),
+            //        leftDownward,
+            //        new string(empty, (squareSize - l - 1) * 4),
+            //        leftUpward,
+            //        new string(empty, (l * 2 - squareSize))
+            //    );
+            //    l++;
+            //}
 
             while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
             {
                 Console.Clear();
-                for (int j = 0; j < height; j++)
+
+                for (int j = 0; j < Console.WindowHeight - 1; j++)
                 {
-                    Console.WriteLine(lignes[j % squareSize], l % ((squareSize - 1) * 2), width);
+                    if (j % squareSize < squareSize / 2)
+                    {
+                        ligne = MakeLine(
+                            //new string(empty, ((squareSize - 1 - l) * 2 - squareSize)),
+                            new string(empty, squareSize - 2 * ((j % squareSize) + 1)),
+                            leftUpward,
+                            new string(empty, (j % squareSize) * 4),
+                            leftDownward,
+                            //new string(empty, ((squareSize - 1 - l) * 2 - squareSize))
+                            new string(empty, squareSize - 2 * ((j % squareSize) + 1))
+                        );
+                    }
+                    else if (squareSize % 2 == 1 && (j % squareSize) == squareSize / 2)
+                    {
+                        ligne = MakeLine(
+                            leftAngle,
+                            new string(empty, (j % squareSize) * 4 - 2),
+                            rightAngle
+                        );
+                    }
+                    else
+                    {
+                        ligne = MakeLine(
+                            new string(empty, ((j % squareSize) * 2 - squareSize)),
+                            leftDownward,
+                            new string(empty, (squareSize - (j % squareSize) - 1) * 4),
+                            leftUpward,
+                            new string(empty, ((j % squareSize) * 2 - squareSize))
+                        );
+                    }
+
+                    if (width == 80)
+                    {
+                        Console.Write(ligne, l % ((squareSize - 1) * 2), width);
+                    }
+                    else
+                    {
+                        Console.WriteLine(ligne, l % ((squareSize - 1) * 2), width);
+                    }
                 }
+
                 l++;
                 System.Threading.Thread.Sleep(50);
+                if (Console.KeyAvailable)
+                {
+                    if (!aPresse)
+                    {
+                        switch (Console.ReadKey(true).KeyChar)
+                        {
+                            case '+':
+                                squareSize++;
+                                aPresse = true;
+                                break;
+                            case '-':
+                                if (squareSize > 2)
+                                {
+                                    squareSize--;
+                                }
+                                aPresse = true;
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    aPresse = false;
+                }
             }
         }
     }
