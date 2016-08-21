@@ -7,7 +7,6 @@ namespace Dallage
     {
         const int width = 80;
         static int squareSize = 2;
-        //const int height = 24;
 
         static char[] MakeLine(params object[] args)
         {
@@ -31,42 +30,6 @@ namespace Dallage
             char[] ligne;
             int l = 0;
             bool aPresse = false;
-
-            //while (l < squareSize / 2)
-            //{
-            //    lignes[l] = MakeLine(
-            //        //new string(empty, ((squareSize - 1 - l) * 2 - squareSize)),
-            //        new string(empty, squareSize - 2 * (l + 1)),
-            //        leftUpward,
-            //        new string(empty, l * 4),
-            //        leftDownward,
-            //        //new string(empty, ((squareSize - 1 - l) * 2 - squareSize))
-            //        new string(empty, squareSize - 2 * (l + 1))
-            //    );
-            //    l++;
-            //}
-
-            //if (squareSize % 2 == 1)
-            //{
-            //    lignes[l] = MakeLine(
-            //        leftAngle,
-            //        new string(empty, l * 4 - 2),
-            //        rightAngle
-            //    );
-            //    l++;
-            //}
-
-            //while (l < squareSize)
-            //{
-            //    lignes[l] = MakeLine(
-            //        new string(empty, (l * 2 - squareSize)),
-            //        leftDownward,
-            //        new string(empty, (squareSize - l - 1) * 4),
-            //        leftUpward,
-            //        new string(empty, (l * 2 - squareSize))
-            //    );
-            //    l++;
-            //}
 
             while (!Console.KeyAvailable || Console.ReadKey().Key != ConsoleKey.Escape)
             {
